@@ -18,6 +18,10 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             let contentController = webVw.configuration.userContentController
             contentController.add(self, name: "textDataHandler")
         }
+        
+        // Add Notification Solitaire Smash
+        NotificationCenter.default.addObserver(self, selector: #selector(showAlert(_:)), name:NSNotification.Name(rawValue: "Solitaire smash"), object: nil)
+
     }
     //Closure var to concat the string
     var fullName:(String,String)->String = { $0 + " " + $1}
@@ -43,6 +47,11 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             print(fullNameS)
            
        }
+    }
+    @objc func showAlert(_ notification: NSNotification) {
+        let alert = UIAlertController(title: "Solitaire smash", message: "Play again to smash your top score", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     func calculateAge(dob:String) {
         let index = dob.index(dob.startIndex, offsetBy: 4)
@@ -70,6 +79,10 @@ class ViewController: UIViewController, WKScriptMessageHandler {
     let script = WKUserScript(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
     let contentController = webVw.configuration.userContentController
     contentController.addUserScript(script)
+        
+        // Adding post Notification in mobile app to handle the notification due to time constraint
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Solitaire smash"), object: self, userInfo: nil)
+        
     }
 }
 
