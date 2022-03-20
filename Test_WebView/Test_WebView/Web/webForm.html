@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                    <title>Simple HTML page</title>
+
+                    <input class="e-input" name="firstName" type="text" placeholder="Enter First Name" / >
+
+                    <input class="e-input" name="lastName" type="text" placeholder="Enter Last Name" />
+
+                    <input class="e-input" name="dob" type="date" placeholder="Date of Birth" />
+
+                    <button class="button" name="Sync" id="syncBtn" onClick="clickEvent()">Sync </button>
+
+                    <button class="button" name="ASync" id="AsyncBtn" onClick="clickAsync()"> ASync</button>
+    
+<input class="e-input" name="fullName" type="text" placeholder="FullName" / >
+<input class="e-input" name="age" type="text" placeholder="Age" / >
+
+
+<script>
+    var _firstName = document.querySelector('input[name=firstName]');
+    var _lastName = document.querySelector('input[name=lastName]');
+var _fullName = document.querySelector('input[name=fullName');
+    var dob = document.querySelector('input[name=dob]');
+    var syncBtn = document.getElementById('syncBtn');
+var AsyncBtn = document.getElementById('AsyncBtn');
+var ageText = document.querySelector('input[name=age]');
+
+//    syncBtn.addEventListener('click', function(changeEvent) {
+//        var firstNameText = _firstName.value;
+//        var lastNameText = _lastName.value;
+//
+//        if (window.webkit && window.webkit.messageHandlers) {
+//            window.webkit.messageHandlers.textDataHandler.postMessage({
+//                "firstName": firstNameText,
+//                "lastName": lastNameText
+//            });
+//        }
+//    });
+function clickEvent() {
+    var firstNameText = _firstName.value;
+    var lastNameText = _lastName.value;
+    var fullName = firstNameText + " " + lastNameText
+    _fullName.value = fullName
+    if (window.webkit && window.webkit.messageHandlers) {
+        window.webkit.messageHandlers.textDataHandler.postMessage({
+            "firstName": firstNameText,
+            "lastName": lastNameText
+        });
+    }
+}
+function clickAsync() {
+    var message = dob.value;
+    if (window.webkit && window.webkit.messageHandlers) {
+        window.webkit.messageHandlers.textDataHandler.postMessage({
+            "dob": message
+        });
+    }
+    let age = 2022 - dob.value
+    ageText.value = age
+}
+//    _lastName.addEventListener('blur', function(changeEvent) {
+//        var message = _lastName.text;
+//        if (window.webkit && window.webkit.messageHandlers) {
+//            window.webkit.messageHandlers.textDataHandler.postMessage({
+//                "lastName": message
+//            });
+//        }
+//    });
+//
+//    dob.addEventListener('change', function(changeEvent) {
+//        var message = dob.text;
+//        if (window.webkit && window.webkit.messageHandlers) {
+//            window.webkit.messageHandlers.textDataHandler.postMessage({
+//                "dob": message
+//            });
+//        }
+//    });
+
+</script>
+
